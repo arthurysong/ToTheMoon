@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+fetch = "python3 ./scripts/fetch.py"
+ft = "python3 ./scripts/fetch_trades.py"
+td = "python3 ./scripts/transform_raw_data.py"
+p = "python3 ./scripts/plot_raw.py"
+ps = "python3 ./scripts/plot_nn_sets.py"
+learn = "octave ./octave/learn.m"
+test = "octave ./octave/test.m"
+
+[packages]
+pprintpp = "*"
+requests = "*"
+plotly = "==4.14.3"
+pandas = "*"
+finplot = "*"
+numpy = "*"
+pyarrow = "*"
+aiohttp = "*"
+asyncio = "*"
+requests-futures = "*"
+websockets = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
