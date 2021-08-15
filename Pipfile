@@ -24,6 +24,10 @@ aiohttp = "*"
 asyncio = "*"
 requests-futures = "*"
 websockets = "*"
+sqlalchemy = "*"
+peewee = "*"
+python-dotenv = "*"
+pymysql = "*"
 
 [dev-packages]
 

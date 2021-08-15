@@ -59,13 +59,15 @@ initial_nn_params = [theta1(:) ; theta2(:)];
 nn_params = initial_nn_params;
 total_cost = 0;
 
-for i = 1:size(training_X, 1)
-% for i = 1:10
+% for i = 1:size(training_X, 1)
+for i = 1:10
   disp(["run gradient descent using example ", num2str(i)])
   lambda = 1;
   options = optimset('MaxIter', 1);
   row_X = training_X(i, :);
-  row_y = training_y(i, :);
+  row_X(1, 1:10)
+  row_y = training_y(i, :)
+  [cost] = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, row_X, row_y, lambda)
   costFunction = @(p) nnCostFunction(p, ...
                                     input_layer_size, ...
                                     hidden_layer_size, ...
@@ -73,6 +75,7 @@ for i = 1:size(training_X, 1)
 
 
   [nn_params, cost] = fmincg(costFunction, nn_params, options);
+  cost
   total_cost = total_cost + cost;
   avg_cost = total_cost / i
 endfor

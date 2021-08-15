@@ -1,6 +1,9 @@
 # ToTheMoon
 
 # State...
+Get the bot to start making trades
+Created pytorch nn
+Need to 
 Add feature: vPoC, vwap, averages, high, min, avg
 
 # Plan...
@@ -36,3 +39,4 @@ nn
 # TODOS
 * re-organize util functions using oop? nah.
 * use octave scripts to learn params
+

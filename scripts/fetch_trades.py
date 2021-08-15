@@ -10,7 +10,7 @@ from pathlib import Path
 base_path = Path(__file__).parent
 file_path = (base_path / "../data/trades").resolve()
 
-sdate = date(2019, 10, 1) #start date
+sdate = date(2021, 7, 2) #start date
 edate = date.today()
 delta = edate - sdate
 

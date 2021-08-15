@@ -3,7 +3,7 @@ KLINES_AFTER = 48 # half day
 # set will span over 7 and a half days.
 TOTAL_KLINES = KLINES_BEFORE + KLINES_AFTER
 
-PERCENT_MOVEMENT_THRESHOLD = 0.02
+PERCENT_MOVEMENT_THRESHOLD = 0.01
 KLINES_INTERVAL = 900
 SET_INTERVAL = 604800
 # SET_INTERVAL = 648000 # SET_INTERVAL is the total seconds of the time frame we're looking at..
