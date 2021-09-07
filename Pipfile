@@ -11,6 +11,7 @@ p = "python3 ./scripts/plot_raw.py"
 ps = "python3 ./scripts/plot_nn_sets.py"
 learn = "octave ./octave/learn.m"
 test = "octave ./octave/test.m"
+stream_trades = "python3 ./db/insert_rows_stream.py"
 
 [packages]
 pprintpp = "*"
@@ -28,6 +29,7 @@ sqlalchemy = "*"
 peewee = "*"
 python-dotenv = "*"
 pymysql = "*"
+pybit = "*"
 
 [dev-packages]
 

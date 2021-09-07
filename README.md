@@ -1,42 +1,55 @@
 # ToTheMoon
 
 # State...
+- Creating initial database. (4704870) trades recorded from pre.
+- Need to keep DB table Klines as well as Trades
+
 Get the bot to start making trades
 Created pytorch nn
 Need to 
 Add feature: vPoC, vwap, averages, high, min, avg
 
-# Plan...
-1. Fetch data points using python script and Bybit.com api
-2. Output correctly formatted data to data.m (we want sets of 40 klines (each kline has 6 attributes), the y label will be the last klines close / open ratio?)
-3. Use octave NN backprop to learn params (where it'll take first 39 klines and last kline's open price to determine y = )
+# DB
+### Trade
+- Trades table created using peewee.
+- hosted on AWS RDS
+- loaded 7 days of trades, AWS EC2 will subscribe to ByBit API, and keep my DB updated with all recent trades.
 
-- we want y to be a classification problem between buy and sell.
-- so some decimal between 0 and 1
-we will label each dataset's y as some float between 0 and 1
-to determine y for each set. we will look at close / open ratio in relationship to max close / open ratio of entire set??
+### Kline
+- I also need to do this for klines ***important***
 
-does nn need to know the scale of the buy? or just needs to differentiate between buy and sell binarily?
-i think for now we can just do binary
-label each set as buy or sell.
+### BotPosition
+- the positions my bot has gone into. Buy/sell. at what price? loss/gain.
 
-architecture 240 300 300 1
+# How the bot will work:
+- Bot will every 5 min: check 7 trailing days of trades and klines and form data to feed to Neural Network.
+- If the NN predicts buy, sell, use ByBit API to enter that position
+- Record BotPositions into DB
 
-lets do 80 20 split training / test
-nn
+# NN Features:
 
-# First training set with 50 epochs and 241 * 40 * 3 nodes was getting .27 accuracy on train and .29 on test
-* plan is to use normalization and mess around with lambda, also give more epochs?
-* get rid of some of the bad data...
-* according to ng notes lambda should be chosen using 0, 0.001, 0.003, 0.01, 0.03, 0.1 ... 10 using cross validation set
-  1. Train Theta using small epochs and for all values of lambda [0, 0.001, 0.003, 0.01]...
-  2. using cross validation set choose lambda with lowest cost.
+# Creating NN:
+1. Fetch data points (klines) using python script and Bybit.com api
+2. Format the data for NN
+I think the dataset format looks something like this:
+- the past 7 days of 15 minutes klines:
+    (open, close, high, low, ...)
+- other stats over all those klines we collected (high, avg, low, ...)
+- POC (point of control)
+- y is 0 1 or 2
 
-* with normalization the results were worse with .12 & .14 accuracy on train and test...
-* trying with min-max scaling instead
+- each dataset was labeled 0 1 or 2 (buy sell or hold) buy looking at the next X number of klines after, and if 
+the price movement was at last ~1%? in either direction it would be (buy/sell) otherwise 2 for hold.
 
 
-# TODOS
-* re-organize util functions using oop? nah.
-* use octave scripts to learn params
+Here is a plot of an example data set:
+![One Data Set](plot_example.png)
 
+3. Use pytorch to learn params
+
+
+output is 0 1 and 2? buy sell or hold.
+
+### Creating Point of Control data point
+1. Needed to fetch all trades for the time frames I wanted to create data sets for
+2. Sift through trades to calculate Point of Control (the price at which most volumes were traded for a given period)

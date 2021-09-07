@@ -11,7 +11,7 @@ SECRET = os.environ.get("BYBIT_SECRET")
 
 from pybit import WebSocket
 from pprintpp import pprint
-from models.trade import Trade
+from models.trade import Trade, db
 
 subs = [
     'orderBookL2_25.BTCUSD',
@@ -30,18 +30,19 @@ ws = WebSocket(
 while True:
   response = ws.fetch('trade.BTCUSD')
   if response:
-    pprint(response)
+    # pprint(response)
 
-    for trade in response:
-      # if not Trade.get_or_none(
-      #   trade_id=trade['trade_id']
-      # ):
-      timestamp = trade['trade_time_ms'] / 1000
-      Trade.get_or_create(
-        timestamp=timestamp,
-        side=trade['side'],
-        size=trade['size'],
-        price=trade['price'],
-        tick_direction=trade['tick_direction'],
-        trade_id=trade['trade_id']
-      )
+    mapped_response = list(map(lambda x: {
+      'timestamp': x['trade_time_ms']/1000,
+      'side': x['side'],
+      'size': x['size'],
+      'price': x['price'],
+      'tick_direction': x['tick_direction'],
+      'trade_id': x['trade_id']
+    }, response))
+
+    pprint(mapped_response)
+
+    with db.atomic():
+      for idx in range(0, len(mapped_response), 100):
+        Trade.insert_many(mapped_response[idx:idx+100]).execute()
