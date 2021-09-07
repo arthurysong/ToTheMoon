@@ -1,4 +1,3 @@
-from typing import Sized
 from peewee import *
 from dotenv import load_dotenv
 import os
@@ -19,6 +18,11 @@ class Trade(BaseModel):
   size = IntegerField()
   price = DecimalField()
   tick_direction = TextField()
+  trade_id = TextField()
 
 db.connect()
+
+# THIS SCRIPT WILL DROP TABLE
+
+db.drop_tables([Trade])
 db.create_tables([Trade])
