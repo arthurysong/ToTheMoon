@@ -19,7 +19,8 @@ from models.kline import Kline, db
 
 BYBIT_API = "https://api.bybit.com"
 TIME_FRAME = 15 # 15 min interval
-FROM_TIMESTAMP = START_TIMESTAMP # this is the earliest valid timestamp avail in BYBITAPI
+# FROM_TIMESTAMP = START_TIMESTAMP # this is the earliest valid timestamp avail in BYBITAPI
+FROM_TIMESTAMP = 1633764600
 SYMBOL = "BTCUSD"
 
 t = FROM_TIMESTAMP
