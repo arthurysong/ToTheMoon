@@ -40,11 +40,12 @@ def get_aggregations(set):
   return [np_opens.sum(), np_opens.mean(), np_opens.std(), np_opens.var(), np_opens.min(), np_opens.max(), np.median(np_opens), np.percentile(np_opens, 25)]
 
 
-pocs = open(get_file_path("../data/pocs.m"), "r").read().split('\n')
-def get_poc(index):
-  return pocs[index]
+# pocs = open(get_file_path("../data/pocs.m"), "r").read().split('\n')
+# def get_poc(index):
+#   return pocs[index]
 
 def get_label(set):
+  # this is getting the y value of the set.
   last_length = KLINES_AFTER * 6
   last_klines = set.split(" ")[-last_length:] 
 
@@ -87,11 +88,14 @@ first_set = grouped_sets[0]
 # print(remove_klines_after(first_set))
 # print(len(remove_klines_after(first_set)))
 # print(get_label(first_set))
+print(len(first_set.split(" ")))
+input()
 
 first_labeled_set = f"{' '.join(remove_klines_after(first_set))} {get_poc(0)} {' '.join(list(map(lambda x: str(x), get_aggregations(first_set))))} {get_label(first_set)}"
 # print(len(first_labeled_set.split(' ')) == KLINES_BEFORE * 6 + 1 + 8 + 1 + 1)
 
 print(len(first_labeled_set.split(' ')))
+input()
 # print(first_labeled_set)
 
 

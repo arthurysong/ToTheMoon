@@ -25,11 +25,12 @@ aiohttp = "*"
 asyncio = "*"
 requests-futures = "*"
 websockets = "*"
-sqlalchemy = "*"
+SQLAlchemy = "*"
 peewee = "*"
 python-dotenv = "*"
-pymysql = "*"
+PyMySQL = "*"
 pybit = "*"
+python-crontab = "*"
 
 [dev-packages]
 
