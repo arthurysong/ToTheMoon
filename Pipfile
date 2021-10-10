@@ -32,6 +32,8 @@ PyMySQL = "*"
 pybit = "*"
 python-crontab = "*"
 torch = "*"
+torchvision = "*"
+torchaudio = "*"
 
 [dev-packages]
 

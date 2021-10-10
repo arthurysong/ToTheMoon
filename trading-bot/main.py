@@ -6,7 +6,8 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 from db.models.kline import Kline
 from db.models.trade import Trade
-from config.params import SET_INTERVAL
+from config.params import SET_INTERVAL, KLINES_BEFORE
+from config.print_colors import bcolors
 import time
 # alright do some thinking here..
 # 1. executed_trades need model
@@ -42,6 +43,19 @@ print(f'length of klines = {len(klines)}')
 # then flatten evertying
 # so we should get 672 * 6
 
+candle_info_for_past_seven_days = []
+for kline in klines:
+  # print(kline.open)
+  candle_info_for_past_seven_days.extend((kline.open, kline.high, kline.low, kline.close, kline.volume, kline.turnover))
+  # input()
+
+# print(len(arr))
+
+print(f'length of candle_info_for_past_seven_days should be 672 * 6 = {KLINES_BEFORE * 6}')
+print(f'len is {len(candle_info_for_past_seven_days)}')
+
+if (len(candle_info_for_past_seven_days) != KLINES_BEFORE * 6):
+  print(bcolors.FAIL + "there is a missing kline ... exiting program")
 
 # what is the format of the input of model? 
 # is it just list of values?
